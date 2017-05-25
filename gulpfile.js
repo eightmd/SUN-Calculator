@@ -8,6 +8,8 @@ var plumber = require('gulp-plumber');
 var tap        = require("gulp-tap");
 var gutil      = require('gulp-util');
 var babelify = require('babelify');
+var uglify = require('gulp-uglify');
+var streamify = require('gulp-streamify');
 
 
 //script to not need to require
@@ -85,7 +87,9 @@ function build2(){
             });
         }
     ))
-    .pipe(gulp.dest('app/js'));
+    //.pipe(streamify(uglify() ) )
+    .pipe(gulp.dest('app/js'))
+    .pipe(browserSync.stream());
 };
 
 gulp.task('renderjs', build2);

@@ -1,20 +1,17 @@
-var App = React.createClass({
-    getInitialState: function() {
-        return { 
-            locations: [],
-            session: [],
-            search: ''
-        };
-    },
-                    
-    render: function(){
-        
+import Equipment from './components/equipment.jsx';
+
+
+class App extends React.Component {
+    render() {
+     
         return (
             <div>
-                Salut
-            </div>  
-        ) 
-    }
-});
-
-module.exports = App;
+                asdasdasd asd
+                <Equipment> </Equipment> 
+            </div>
+        
+        )   
+    }   
+}
+ 
+module.exports = App; 
