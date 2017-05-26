@@ -3,22 +3,82 @@ class Rezultat extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            show: 0
-            
+            show: 0,
+            campuri: this.props.campuri
         }
         
+        var multipluAparatura = 0;
+      var valoareAparatura = 0;
+       
+        
+        
+    }
+    
+    componentWillMount(){
+        
+    }
+    
+    componentDidUpdate(){
+       
     }
     
     
     
+    
     render() {
-        
-        
+        var procentaj = Number(this.props.aparatura);
+        var multipluAparatura = this.props.aparatura / 100;
+        var valoareAparatura = this.props.rezultat * multipluAparatura;
+        var grandTotal = this.props.rezultat + valoareAparatura;
         return (
             
             <div>
                 {this.props.show ? (
-                    <p>Rezultatul</p>
+                    <div>
+                        <p>Rezultatul: </p>
+                        
+                        <table className="tabel-rezultate">
+                            <tbody>
+                            {this.state.campuri.map(function(camp, index){
+                                if(camp.denumire == ''){
+                                    camp.denumire = 'nedefinit';
+                                }
+
+                                if(camp.suma){
+                                    var suma = camp.suma;
+                                    
+                                    return (
+                                        <tr className="rezultat--camp">
+                                            <td className="rezultat--camp--denumire">{camp.denumire}</td>
+                                            <td className="rezultat--camp-suma">{Number(suma).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') } lei</td>
+                                        </tr>
+
+                                    )
+                                }  
+                            })
+                            }
+                            <tr className="bold">
+                                <td>Total Non-aparatura:</td>
+                                <td>{this.props.rezultat.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') } lei</td>
+                            </tr>
+                            <tr>
+                                <td>Procentaj aparatura</td>
+                                <td>{procentaj.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }%</td>
+                            </tr>
+                            <tr className="bold">
+                                <td>Valoare Aparatura:</td>
+                                <td>{valoareAparatura.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') } lei</td>
+                            </tr>
+                            <tr className="bold">
+                                <td>Grand Total:</td>
+                                <td>{grandTotal.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') } lei</td>
+                            </tr>
+                            
+                            
+                            </tbody>
+                        </table>
+                        
+                    </div>
                 ) : (
                     <p>Nimic inca</p>
                 )}
@@ -40,16 +100,17 @@ class Input extends React.Component {
         }
         
         this.changeSuma = this.changeSuma.bind(this);
+        this.changeDenumire = this.changeDenumire.bind(this);
         this.key = this.props.reactKey;
     }
     
     
-    changeSuma(events){
+    changeSuma(event){
         this.props.onUpdate(this.key, 'suma', event.target.value);
     }
     
     changeDenumire(event){
-         this.props.onUpdate(this.key, 'suma', event.target.value);
+         this.props.onUpdate(this.key, 'denumire', event.target.value);
     }
     
     render() {
@@ -60,7 +121,7 @@ class Input extends React.Component {
                <div className="row">
                    <div className="col-md-4">
                        <label htmlFor="">Denumire</label>
-                        <input type="text" defaultValue={this.state.denumire} />
+                        <input type="text" defaultValue={this.state.denumire} onChange={this.changeDenumire} /> 
                    </div>
                     <div className="col-md-4">
                        <label htmlFor="">Suma</label>
@@ -76,6 +137,37 @@ class Input extends React.Component {
     }
 }
 
+class Aparatura extends React.Component {
+    constructor(props){
+        super(props);
+        
+        this.handleChange = this.handleChange.bind(this);
+    }
+    
+    handleChange(event) {
+        this.props.onUpdate(event.target.value)
+        
+    }
+    
+    render() {
+        
+        return(
+        
+            <div className="form-group">
+                <div className="row">
+                    <div className="col-md-12">
+                        <label htmlFor="">Procentaj aparatura*</label>
+                        <input type="text" defaultValue={100} onChange={this.handleChange}></input>
+                    </div>
+                     
+                </div>        
+                <p>*Procentajul aparaturii din totalul celorlalte. Ex: Un procentaj de 100% inseamna ca aparatura va avea aceeasi valoare ca totalul celorlalte. 200% inseamna ca aparatura va avea un buget de doua ori mai mare decat celelalte.</p>
+            </div>
+            
+        )
+        
+    }
+}
 
 class Equipment extends React.Component {
     constructor(props){
@@ -85,20 +177,26 @@ class Equipment extends React.Component {
                 {"denumire": "Angajati", "suma": "ex: 54.794"},
                 {"denumire": "Consultant", "suma": "ex: 8.000"}
             ],
+            aparatura: 100,
             rezultat: 0
         };
         
         this.calculeaza = this.calculeaza.bind(this);
         this.update = this.update.bind(this);
-        var eqp = this;
+        this.addRow = this.addRow.bind(this);
+        this.updateAparatura = this.updateAparatura.bind(this);
     }
     
     calculeaza(){
         
-        let x = 1;
+        let x = 0;
+        x = Number(x);
+        this.state.campuri.map(function(camp, index){
+            x = x + Number(camp.suma);
+        })
+        
         this.setState({
-           rezultat: 1,
-            show: 'a'
+           rezultat: x
         });
         
         
@@ -107,13 +205,33 @@ class Equipment extends React.Component {
   
     
     update(index, field, value){
+        /*
         console.log('updated the input with index', index);
         console.log('the field is', field);
         console.log('the value is', value);
+        */
+        var campuri = this.state.campuri;
+        campuri[index][field] = value;
+    }
+    
+    addRow(){
+        var campuri = this.state.campuri;
+        var campuri = campuri.push({"denumire": "", "suma": "suma"});
+
+       this.forceUpdate();
+        
+    }
+    
+    updateAparatura(val){
+        this.setState({
+           aparatura: val 
+        });
     }
     
     componentDidMount(){
+        /*
         console.log('equipment rendered');
+        */
     }
     
     render() {
@@ -129,9 +247,11 @@ class Equipment extends React.Component {
                 }, this)
                 }
                 
+                <Aparatura onUpdate={this.updateAparatura} />
                 <button onClick={this.calculeaza} >Calculeaza</button>
+                <button onClick={this.addRow} >Adauga Element</button>
                 
-                <Rezultat show={this.state.rezultat} />
+                <Rezultat show={this.state.rezultat} rezultat={this.state.rezultat} campuri={this.state.campuri} aparatura={this.state.aparatura} />
             </div>    
         )
     }   
