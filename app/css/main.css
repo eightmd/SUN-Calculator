@@ -1,19 +1,48 @@
-#app {
+a {
+  color: inherit; }
+
+#wrapper {
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 80px; }
+  width: 90%; }
+
+#app {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  margin-bottom: 50px; }
+
+.btn {
+  display: block;
+  margin-bottom: 15px; }
 
 .intro {
-  text-align: center; }
+  margin-top: 40px;
+  text-align: left; }
+  .intro h1 {
+    display: inline-block; }
 
 .calc-section {
   background: #ebebeb;
   padding: 20px; }
 
+.intro--by {
+  float: right;
+  font-size: 26px; }
+  .intro--by img {
+    width: 100px; }
+  .intro--by p {
+    display: inline-block;
+    margin-right: 7px; }
+
 .form-group label {
   display: block;
   position: relative; }
+
+.form-group input {
+  width: 100%;
+  max-width: 400px; }
 
 hr {
   display: none;
@@ -25,3 +54,40 @@ hr {
 
 .bold {
   font-weight: 700; }
+
+.logo-img {
+  display: block;
+  position: relative;
+  max-width: 100px;
+  display: inline-block; }
+
+.built-with {
+  font-weight: 700;
+  margin-bottom: 20px; }
+  .built-with img {
+    max-width: 40px;
+    display: inline-block; }
+  .built-with p {
+    display: inline-block; }
+
+.rezultat {
+  display: block;
+  position: relative;
+  margin-top: 20px; }
+
+footer {
+  margin-bottom: 50px; }
+
+.built-by img {
+  display: inline-block;
+  max-width: 30px;
+  margin-right: 10px; }
+
+.built-by p {
+  display: inline-block;
+  margin-right: 25px; }
+
+@media screen and (max-width: 768px) {
+  .intro--by {
+    float: none;
+    margin-top: 5px; } }

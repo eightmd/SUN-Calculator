@@ -34,7 +34,7 @@ class Rezultat extends React.Component {
             
             <div>
                 {this.props.show ? (
-                    <div>
+                    <div className="rezultat">
                         <p>Rezultatul: </p>
                         
                         <table className="tabel-rezultate">
@@ -119,11 +119,11 @@ class Input extends React.Component {
             
              <div className="form-group">
                <div className="row">
-                   <div className="col-md-4">
+                   <div className="col-xs-6 cold-md-4">
                        <label htmlFor="">Denumire</label>
                         <input type="text" defaultValue={this.state.denumire} onChange={this.changeDenumire} /> 
                    </div>
-                    <div className="col-md-4">
+                    <div className="col-xs-6 col-md-4">
                        <label htmlFor="">Suma</label>
                         <input type="text" placeholder={this.state.suma} onChange={this.changeSuma} />
                    </div>
@@ -238,7 +238,13 @@ class Equipment extends React.Component {
      
         return (
             <div className="calc-section">
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+               <h3>Calculator buget pentru echipamente si software</h3>
+                <p>Conform grilei programului Startup Nation, se acorda un punctaj suplimentar de 10 puncte proiectelor care investesc mai mult de 50% in echipamente tehnologice si aparatura.</p>
+                
+                <p>Exista situatii in care nu este tocmai indicat sa se contracteze pentru toata suma disponibila (200.000 lei) din motivul costurilor ce trebuie suportate in avans. In acest sens am creat calculatorul ce poate sa va ajute in realizarea calculelor necesare pentru estimarea bugetului.</p>
+                
+                <p>Pentru obtinerea celor 10 puncte suplimentare trebuie ca procentajul aparaturii (echipamente tehnologice si software) sa fie de minim 100% din totalul celorlalte (adica minim tot atat). </p>
+                
                 
                 {this.state.campuri.map(function(camp, index){
                     return (
@@ -248,8 +254,11 @@ class Equipment extends React.Component {
                 }
                 
                 <Aparatura onUpdate={this.updateAparatura} />
-                <button onClick={this.calculeaza} >Calculeaza</button>
-                <button onClick={this.addRow} >Adauga Element</button>
+                
+                
+                <button onClick={this.addRow} className="btn" >Adauga Element</button>
+                
+                <button onClick={this.calculeaza} className="btn" >Calculeaza</button>
                 
                 <Rezultat show={this.state.rezultat} rezultat={this.state.rezultat} campuri={this.state.campuri} aparatura={this.state.aparatura} />
             </div>    
