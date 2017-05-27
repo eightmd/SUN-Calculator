@@ -80,7 +80,7 @@ class Rezultat extends React.Component {
                         
                     </div>
                 ) : (
-                    <p>Nimic inca</p>
+                    <p>Nimic inca / Elemente invalide</p>
                 )}
             </div>
         
@@ -119,13 +119,13 @@ class Input extends React.Component {
             
              <div className="form-group">
                <div className="row">
-                   <div className="col-xs-6 cold-md-4">
+                   <div className="col-xs-6 cold-md-4 column">
                        <label htmlFor="">Denumire</label>
-                        <input type="text" defaultValue={this.state.denumire} onChange={this.changeDenumire} /> 
+                        <input type="text" className="form-control" defaultValue={this.state.denumire} onChange={this.changeDenumire} /> 
                    </div>
-                    <div className="col-xs-6 col-md-4">
-                       <label htmlFor="">Suma</label>
-                        <input type="text" placeholder={this.state.suma} onChange={this.changeSuma} />
+                    <div className="col-xs-6 col-md-4 column">
+                       <label htmlFor="">Suma (lei)</label>
+                        <input type="text" className="form-control" placeholder={this.state.suma} onChange={this.changeSuma} />
                    </div>
                </div>
                <hr></hr>
@@ -157,7 +157,7 @@ class Aparatura extends React.Component {
                 <div className="row">
                     <div className="col-md-12">
                         <label htmlFor="">Procentaj aparatura*</label>
-                        <input type="text" defaultValue={100} onChange={this.handleChange}></input>
+                        <input type="text" className="form-control" defaultValue={100} onChange={this.handleChange}></input>
                     </div>
                      
                 </div>        
@@ -245,6 +245,7 @@ class Equipment extends React.Component {
                 
                 <p>Pentru obtinerea celor 10 puncte suplimentare trebuie ca procentajul aparaturii (echipamente tehnologice si software) sa fie de minim 100% din totalul celorlalte (adica minim tot atat). </p>
                 
+                 <button className="btn btn-default" data-toggle="modal" data-target="#myModal" data-theVideo="http://www.youtube.com/embed/loFtozxZG0s" >VIDEO</button> 
                 
                 {this.state.campuri.map(function(camp, index){
                     return (

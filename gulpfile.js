@@ -87,7 +87,7 @@ function build2(){
             });
         }
     ))
-    //.pipe(streamify(uglify() ) )
+    .pipe(streamify(uglify() ) )
     .pipe(gulp.dest('app/js'))
     .pipe(browserSync.stream());
 };
